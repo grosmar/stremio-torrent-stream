@@ -7,7 +7,8 @@
   "scripts": {
     "build": "tsc",
     "start": "node --no-warnings dist/index.js",
-    "dev": "esrun --node-no-warnings --watch src/index.ts"
+    "dev": "esrun --node-no-warnings --watch src/index.ts",
+    "docker:build": "docker buildx build --platform linux/arm64,linux/arm/v7 -t grosmar/stremio-torrent-stream:latest --push ."
   },
   "keywords": [],
   "author": "",
@@ -43,6 +44,10 @@
   "pnpm": {
     "patchedDependencies": {
       "stremio-addon-sdk@1.6.10": "patches/stremio-addon-sdk@1.6.10.patch"
-    }
+    },
+    "onlyBuiltDependencies": [
+      "node-datachannel",
+      "utp-native"
+    ]
   }
 }
