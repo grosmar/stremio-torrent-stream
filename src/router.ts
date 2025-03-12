@@ -10,6 +10,8 @@ import {
 } from "./torrent/webtorrent.js";
 import { getStreamingMimeType } from "./utils/file.js";
 
+const PUBLIC_URL = process.env.PUBLIC_URL || undefined;
+
 export const router = Router();
 
 router.get("/stats", (req, res) => {
@@ -38,7 +40,7 @@ router.get("/torrent/:torrentUri", async (req, res) => {
 
   torrent.files.forEach((file) => {
     file.url = [
-      `${req.protocol}://${req.get("host")}`,
+      PUBLIC_URL || `${req.protocol}://${req.get("host")}`,
       "stream",
       encodeURIComponent(torrentUri),
       encodeURIComponent(file.path),

@@ -39,6 +39,8 @@ interface HandlerArgs {
   req: Request;
 }
 
+const PUBLIC_URL = process.env.PUBLIC_URL || undefined;
+
 export const streamHandler = async ({ type, id, config, req }: HandlerArgs) => {
   let torrents: TorrentSearchResult[] = [];
 
@@ -184,7 +186,7 @@ export const getStreamsFromTorrent = async (
       [`🔊 ${language}`, `⚙️ ${torrent.tracker}`].join(" "),
     ].join("\n");
 
-    const streamEndpoint = `${req.protocol}://${req.get("host")}/stream`;
+    const streamEndpoint = (PUBLIC_URL || `${req.protocol}://${req.get("host")}/`) + `stream`;
 
     const url = [
       streamEndpoint,
